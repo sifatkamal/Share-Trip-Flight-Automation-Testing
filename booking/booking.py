@@ -40,6 +40,34 @@ class Booking:
 
         self.driver.get(const.BASE_URL)
 
+    def header(self):
+
+        # header check
+
+        header_expected_hyperlink = ['Flight', 'Hotel', 'Shop', 'Holiday', 'Visa', 'Promotions', 'Business Class', 'Others', 'Login']
+
+        count = 0
+
+        hyperlink_1 = self.driver.find_elements(By.CSS_SELECTOR, 'span[class="MuiTypography-root MuiTypography-span mui-style-tdytol"]')
+
+        hyperlink_2 = self.driver.find_elements(By.CSS_SELECTOR, 'p[class="MuiTypography-root MuiTypography-body1 mui-style-1aeqxg7"]')
+
+        hyperlink_3 = self.driver.find_elements(By.CSS_SELECTOR, 'span[class="MuiTypography-root MuiTypography-span mui-style-h1xbi2"]')
+
+        login = self.driver.find_elements(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[1]')
+
+        hyperlink = hyperlink_1 + hyperlink_2 + hyperlink_3 + login
+
+        for i in hyperlink:
+
+            value = i.text
+
+            if value in header_expected_hyperlink:
+
+                count+=1    
+
+        assert count == 9
+
     def flight_search(self):
 
         # self.driver.find_element(By.XPATH, '(//label[@class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd mui-style-83snne"])[1]').click()
