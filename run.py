@@ -4,4 +4,6 @@ with Booking() as bot:
 
     bot.land_page()
 
-    bot.flight_search()
+    # bot.flight_search()
+
+    bot.faq()

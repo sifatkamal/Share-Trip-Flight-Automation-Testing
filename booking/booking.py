@@ -114,3 +114,29 @@ class Booking:
 
         assert search_check is not None
 
+    def faq(self):
+
+        element = self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-12vri3f"])')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        time.sleep(6)
+
+        answer_list = []
+
+        wait = WebDriverWait(self.driver, 10)
+
+        for i in range(1, 7):
+
+            question = wait.until(EC.element_to_be_clickable((By.XPATH, f'(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-12vri3f"])[{i}]')))
+            
+            question.click()
+            
+            answer = self.driver.find_element(By.CSS_SELECTOR, 'div[class="MuiAccordionDetails-root mui-style-u7qq7e"]')
+
+            answer_list.append(answer)
+
+        assert len(answer_list) == 6
+            
+
+
