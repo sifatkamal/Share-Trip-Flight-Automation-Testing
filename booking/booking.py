@@ -42,8 +42,6 @@ class Booking:
 
     def header(self):
 
-        # header check
-
         header_expected_hyperlink = ['Flight', 'Hotel', 'Shop', 'Holiday', 'Visa', 'Promotions', 'Business Class', 'Others', 'Login']
 
         count = 0
@@ -70,31 +68,19 @@ class Booking:
 
     def flight_search(self):
 
-        # self.driver.find_element(By.XPATH, '(//label[@class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd mui-style-83snne"])[1]').click()
-
         self.driver.find_element(By.CSS_SELECTOR, 'button[id="traveller-count-button"]').click()
-
-        # 2 adults
 
         self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[9]').click()
 
-        # 1 child
-
         self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[11]').click()
 
-        # 1 kids
-
         self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[13]').click()
-
-        # 1 infants
 
         self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[15]').click()
 
         self.driver.find_element(By.TAG_NAME, "body").click()
 
         time.sleep(3)
-
-        # Traveling type
 
         self.driver.find_element(By.CSS_SELECTOR, 'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation mui-style-1v7znae"]').click()
 
@@ -104,17 +90,11 @@ class Booking:
 
         self.driver.find_element(By.TAG_NAME, "body").click()
 
-
-        # Student Fare
-
         self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-1mmzlec"])[5]').click()
 
         round_trip_flight_info = self.driver.find_elements(By.XPATH, '//div[@class="MuiStack-root mui-style-1r5to7m"]')
 
         assert len(round_trip_flight_info) == 4
-
-
-        # One Way
 
         self.driver.find_element(By.XPATH, '(//label[@class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd mui-style-83snne"])[1]').click()
 
@@ -122,11 +102,7 @@ class Booking:
 
         assert len(one_way_flight_info) == 3
 
-        # Multi City
-
         self.driver.find_element(By.XPATH, '(//label[@class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd mui-style-83snne"])[2]').click()
-
-        # Add more
         
         self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[4]').click()
 
@@ -135,8 +111,6 @@ class Booking:
         time.sleep(6)
 
         assert len(flight_info) == 9
-
-        # Search button check
 
         search_check = self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[6]')
 

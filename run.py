@@ -4,17 +4,17 @@ with Booking() as bot:
 
     bot.land_page()
 
-    # bot.header()
+    bot.header()
 
-    # bot.flight_search()
+    bot.flight_search()
 
-    # bot.popular()
+    bot.popular()
 
-    # bot.faq()
+    bot.faq()
 
-    # bot.popular_flight()
+    bot.popular_flight()
 
-    # bot.by_destination()
+    bot.by_destination()
 
     bot.chatbot()
 
