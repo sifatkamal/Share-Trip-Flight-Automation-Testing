@@ -142,6 +142,19 @@ class Booking:
 
         assert search_check is not None
 
+    
+
+    def popular(self):
+
+        element = self.driver.find_element(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        airlines = self.driver.find_elements(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
+
+        assert len(airlines) == 19
+
+
     def faq(self):
 
         element = self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-12vri3f"])')
@@ -165,6 +178,87 @@ class Booking:
             answer_list.append(answer)
 
         assert len(answer_list) == 6
-            
 
+    def popular_flight(self):
+
+        element = self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[4]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+
+        box = self.driver.find_elements(By.CSS_SELECTOR, 'div[class="MuiBox-root mui-style-lxguk4"]')
+
+        listt_1 = []
+
+        listt_2 = []
+
+        for i in box:
+
+            listt_1.append(i.text)
+
+        time.sleep(6)
+        
+
+        self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[4]').click()
+
+        box = self.driver.find_elements(By.CSS_SELECTOR, 'div[class="MuiBox-root mui-style-lxguk4"]')
+
+        for i in box:
+
+            listt_2.append(i.text)
+
+        assert listt_1 != listt_2
+
+    def by_destination(self):
+
+        element = self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[6]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        listt_1 = []
+
+        listt_2 = []
+
+        destination = self.driver.find_elements(By.CSS_SELECTOR, 'p[class="MuiTypography-root MuiTypography-body1 hoverText mui-style-12xuhy5"]')
+
+        for i in destination:
+
+            value = i.text
+
+            listt_1.append(value)
+
+        time.sleep(6)
+
+        self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[6]').click()
+
+        destination = self.driver.find_elements(By.CSS_SELECTOR, 'p[class="MuiTypography-root MuiTypography-body1 hoverText mui-style-12xuhy5"]')
+
+        for i in destination:
+
+            value = i.text
+
+            listt_2.append(value)
+
+        assert listt_1 != listt_2
+
+    def chatbot(self):
+
+        time.sleep(7)
+
+        self.driver.find_element(By.CSS_SELECTOR, 'span[class="cc-157aw cc-1kgzy"]').click()
+
+        self.driver.find_element(By.CSS_SELECTOR, 'textarea[name="message"]').send_keys("Hello")
+
+        self.driver.find_element(By.XPATH, '(//span[@class="cc-ytg1n cc-5t1tm"])[2]').click()
+
+        time.sleep(4)
+
+        self.driver.find_element(By.CSS_SELECTOR, 'span[class="cc-1bvfm"]').click()
+
+
+
+
+
+
+        
 
