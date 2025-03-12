@@ -44,6 +44,10 @@ class Booking:
 
         header_expected_hyperlink = ['Flight', 'Hotel', 'Shop', 'Holiday', 'Visa', 'Promotions', 'Business Class', 'Others', 'Login']
 
+        visa_expected_options = ['Visa Application', 'Visa Guide', 'Transit Visa']
+
+        others_options = ['About', 'SkyTrip', 'Why ShareTrip?', 'Travel Guide', 'News', 'FAQ & Support', 'Medical']
+
         count = 0
 
         hyperlink_1 = self.driver.find_elements(By.CSS_SELECTOR, 'span[class="MuiTypography-root MuiTypography-span mui-style-tdytol"]')
@@ -65,6 +69,32 @@ class Booking:
                 count+=1    
 
         assert count == 9
+
+        self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-1aeqxg7"])[1]').click()
+
+        listt = []
+
+        for i in range(16, 19):
+
+            option = self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-1xhsunu"])[{}]'.format(i)).text
+
+            listt.append(option)
+
+        assert listt == visa_expected_options
+
+        self.driver.find_element(By.TAG_NAME, "body").click()
+
+        self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-1aeqxg7"])[2]').click()
+
+        listt = []
+
+        for i in range(16, 23):
+
+            option = self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-1xhsunu"])[{}]'.format(i)).text
+
+            listt.append(option)
+
+        assert listt == others_options
 
     def flight_search(self):
 
@@ -118,18 +148,22 @@ class Booking:
 
     
 
-    def popular(self):
 
-        element = self.driver.find_element(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
 
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
-        airlines = self.driver.find_elements(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
-
-        assert len(airlines) == 19
 
 
     def faq(self):
+
+        expected_headline = 'Frequently Asked Questions'
+
+        element = self.driver.find_element(By.XPATH, '(//h2[@class="MuiTypography-root MuiTypography-h2 mui-style-bxn3sk"])[6]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        textt = self.driver.find_element(By.XPATH, '(//h2[@class="MuiTypography-root MuiTypography-h2 mui-style-bxn3sk"])[6]').text
+
+        assert textt == expected_headline
 
         element = self.driver.find_element(By.XPATH, '(//p[@class="MuiTypography-root MuiTypography-body1 mui-style-12vri3f"])')
 
@@ -153,7 +187,42 @@ class Booking:
 
         assert len(answer_list) == 6
 
-    def popular_flight(self):
+        self.driver.find_element(By.CSS_SELECTOR, 'div[class="MuiAccordionSummary-expandIconWrapper Mui-expanded mui-style-1fx8m19"]').click()
+
+    
+    
+    
+    def popular_airlines_and_flight_destination(self):
+
+        headline = "Most Popular Airlines"
+
+        element = self.driver.find_element(By.XPATH, '(//h2[@class="MuiTypography-root MuiTypography-h2 mui-style-bxn3sk"])[2]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        popular_airline_headline = element.text
+
+        assert popular_airline_headline == headline
+
+        element = self.driver.find_element(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        airlines = self.driver.find_elements(By.CSS_SELECTOR, 'a[class="mui-style-hx8sk2"]')
+
+        assert len(airlines) == 19
+
+        time.sleep(3)
+
+
+
+        headline = "Popular Flight Destinations from BD"
+
+        element = self.driver.find_element(By.XPATH, '(//h2[@class="MuiTypography-root MuiTypography-h2 mui-style-bxn3sk"])[3]')
+
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+        assert headline == element.text
 
         element = self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[4]')
 
@@ -183,7 +252,7 @@ class Booking:
 
         assert listt_1 != listt_2
 
-    def by_destination(self):
+    def chepeast_flight_by_destination(self):
 
         element = self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[6]')
 
@@ -193,6 +262,8 @@ class Booking:
 
         listt_2 = []
 
+        listt_3 = []
+
         destination = self.driver.find_elements(By.CSS_SELECTOR, 'p[class="MuiTypography-root MuiTypography-body1 hoverText mui-style-12xuhy5"]')
 
         for i in destination:
@@ -200,6 +271,8 @@ class Booking:
             value = i.text
 
             listt_1.append(value)
+
+        assert len(listt_1) == 12
 
         time.sleep(6)
 
@@ -215,15 +288,53 @@ class Booking:
 
         assert listt_1 != listt_2
 
+        self.driver.find_element(By.XPATH, '(//span[@class="mui-style-1sjvzwv"])[5]').click()
+
+        destination = self.driver.find_elements(By.CSS_SELECTOR, 'p[class="MuiTypography-root MuiTypography-body1 hoverText mui-style-12xuhy5"]')
+
+        for i in destination:
+
+            value = i.text
+
+            listt_3.append(value)
+
+        assert listt_3 == listt_1
+
+        
+
     def chatbot(self):
 
         time.sleep(7)
 
         self.driver.find_element(By.CSS_SELECTOR, 'span[class="cc-157aw cc-1kgzy"]').click()
 
+        opening_text = self.driver.find_element(By.CSS_SELECTOR, 'span[class="cc-dvx9d"]').text
+
+        assert opening_text is not None
+
         self.driver.find_element(By.CSS_SELECTOR, 'textarea[name="message"]').send_keys("Hello")
 
+        self.driver.find_element(By.CSS_SELECTOR, 'textarea[name="message"]').clear()
+
         self.driver.find_element(By.XPATH, '(//span[@class="cc-ytg1n cc-5t1tm"])[2]').click()
+
+        help_messages = self.driver.find_elements(By.CSS_SELECTOR, 'span[class="cc-5pwnm cc-olo99"]')
+
+        assert help_messages is not None
+
+        self.driver.find_element(By.CSS_SELECTOR, 'input[name="helpdesk_search"]').send_keys("Tourism")
+
+        time.sleep(4)
+
+        results = self.driver.find_elements(By.CSS_SELECTOR, 'span[class="cc-m4qlg cc-361jl"]')
+
+        searchlist = []
+
+        for i in results:
+
+            question = i.text
+
+            assert "Tourism" in question or "tourism" in question
 
         time.sleep(4)
 

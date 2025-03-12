@@ -8,13 +8,11 @@ with Booking() as bot:
 
     bot.flight_search()
 
-    bot.popular()
-
     bot.faq()
 
-    bot.popular_flight()
+    bot.popular_airlines_and_flight_destination()
 
-    bot.by_destination()
+    bot.chepeast_flight_by_destination()
 
     bot.chatbot()
 
